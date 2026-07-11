@@ -1,90 +1,156 @@
 ---
-import { getCollection } from 'astro:content';
-import CategoryChip from './CategoryChip.astro';
-import EligibleCard from './EligibleCard.astro';
-import TrustPills from './TrustPills.astro';
-
-const categories = await getCollection('categories');
+import CategoryPills from './CategoryPills.astro';
 ---
 <section class="hero" aria-labelledby="hero-heading">
-  <p class="eyebrow">
-    <span class="eyebrow-dot" aria-hidden="true"></span> Bennies
-  </p>
-  <h1 id="hero-heading">
-    Your AI guide to<br />
-    <span class="grad">life-changing<br />opportunities.</span>
-  </h1>
-  <p class="lead">
-    Bennies connects you with personalized benefits, grants, scholarships, healthcare,
-    jobs, and community support — so you never miss what you're eligible for.
-  </p>
-
-  <ul class="chip-row" aria-label="Categories we cover">
-    {categories.map((c) => (
-      <li>
-        <CategoryChip icon={c.data.icon} name={c.data.name} tone={c.data.tone} />
-      </li>
-    ))}
-  </ul>
-
-  <div class="cta-row">
-    <a class="btn btn-primary" href="/onboarding">
-      Get started <span aria-hidden="true">→</span>
-    </a>
-    <EligibleCard amount="$14,980+" />
+  <div class="hero-bg" aria-hidden="true">
+    <img src="/hero-person.jpg" alt="" />
+    <div class="hero-scrim"></div>
   </div>
 
-  <div class="trust-row">
-    <TrustPills />
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="section-eyebrow eyebrow-blue">AI opportunity navigator</p>
+      <h1 id="hero-heading">
+        Helping opportunity <span class="hl hl-blue">find you</span>.
+      </h1>
+      <p class="hero-lead">
+        Discover benefits, grants, healthcare, scholarships, jobs and more
+        you may be eligible for.
+      </p>
+
+      <CategoryPills />
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/onboarding">
+          Check my eligibility
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/>
+          </svg>
+        </a>
+      </div>
+
+      <dl class="hero-meta">
+        <div><dt>Takes</dt><dd>~2 minutes</dd></div>
+        <div><dt>Sign-up</dt><dd>Not required</dd></div>
+        <div><dt>Cost</dt><dd>Free</dd></div>
+      </dl>
+    </div>
   </div>
 </section>
 
 <style>
-  .hero { padding: 40px 0 24px; }
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--color-brand-strong);
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin: 0 0 12px;
-  }
-  .eyebrow-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: var(--radius-pill);
-    background: var(--color-brand);
-  }
-  h1 { margin: 0 0 16px; }
-  .grad {
-    background: linear-gradient(90deg, var(--color-brand), var(--color-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .lead {
-    color: var(--ink-2);
-    font-size: 1.05rem;
-    max-width: 34rem;
-    margin: 0 0 20px;
-  }
-  .chip-row {
-    list-style: none;
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 620px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 0 0 24px;
-    padding: 0;
+    align-items: center;
+    padding: 72px 0 56px;
+  }
+
+  /* Background image + overlay — escapes container to full viewport width */
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    overflow: hidden;
+    z-index: -1;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    display: block;
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg,
+        rgba(253, 252, 247, 0.98) 0%,
+        rgba(253, 252, 247, 0.92) 34%,
+        rgba(253, 252, 247, 0.55) 55%,
+        rgba(253, 252, 247, 0.15) 78%,
+        rgba(253, 252, 247, 0) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-copy {
+    max-width: 640px;
+  }
+
+  .hero-copy h1 {
+    margin: 0 0 20px;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+  }
+  .hero-lead {
+    color: var(--ink-2);
+    font-size: 1.15rem;
+    line-height: 1.55;
+    max-width: 34rem;
+    margin: 0 0 28px;
   }
   .cta-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 28px;
   }
-  .trust-row { max-width: 620px; }
+
+  .hero-meta {
+    display: flex;
+    gap: 0;
+    margin: 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    max-width: 480px;
+  }
+  .hero-meta > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-right: 32px;
+    border-right: 1px solid var(--line);
+    margin-right: 32px;
+  }
+  .hero-meta > div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+  .hero-meta dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    margin: 0;
+    font-weight: 600;
+  }
+  .hero-meta dd { margin: 0; font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+
+  @media (max-width: 900px) {
+    .hero { min-height: auto; padding: 48px 0 40px; }
+    .hero-scrim {
+      background:
+        linear-gradient(180deg,
+          rgba(253, 252, 247, 0.35) 0%,
+          rgba(253, 252, 247, 0.85) 40%,
+          rgba(253, 252, 247, 0.98) 60%,
+          rgba(253, 252, 247, 1) 100%);
+    }
+    .hero { padding-top: 260px; }
+    .hero-bg img { object-position: top center; }
+  }
+  @media (max-width: 540px) {
+    .hero-meta > div { padding-right: 20px; margin-right: 20px; }
+  }
 </style>

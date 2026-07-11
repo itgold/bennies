@@ -1,6 +1,6 @@
 [
-  { "id": "secure", "icon": "🔒", "label": "Private & Secure", "description": "Your info stays yours. Encrypted end to end." },
-  { "id": "personalized", "icon": "🎯", "label": "Personalized", "description": "Matched to you, not the crowd." },
-  { "id": "updated", "icon": "🔄", "label": "Always Updated", "description": "Fresh programs every day." },
-  { "id": "everyone", "icon": "🌍", "label": "For Everyone", "description": "Built for all backgrounds." }
+  { "id": "private", "icon": "🔒", "label": "Your info stays yours", "description": "Nothing is saved on our servers. Close the tab and it's gone." },
+  { "id": "free", "icon": "💵", "label": "Free to use", "description": "Always. No accounts, no fees, no upsell." },
+  { "id": "independent", "icon": "🏛", "label": "Not the government", "description": "And not affiliated with one. Every rule links to the real source." },
+  { "id": "languages", "icon": "🗣", "label": "English & Spanish", "description": "More languages coming." }
 ]

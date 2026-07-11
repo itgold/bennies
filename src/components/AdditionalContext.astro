@@ -1,0 +1,175 @@
+---
+---
+<section class="context" aria-labelledby="context-heading">
+  <div class="context-header">
+    <p class="context-eyebrow">
+      <span class="opt-tag">Optional</span>
+      Anything else worth mentioning
+    </p>
+    <h2 id="context-heading" class="context-title">
+      Some situations don't fit a form.
+    </h2>
+    <p class="context-body">
+      If there's context that matters — a recent job loss, a chronic illness, a family member you're
+      caring for, an eviction notice — write it here or record a quick note. The more we know,
+      the better we can match you with the right programs.
+    </p>
+  </div>
+
+  <div class="chatbox">
+    <label for="context-note" class="sr-only">Additional context</label>
+    <textarea
+      id="context-note"
+      name="context"
+      class="chat-input"
+      rows="3"
+      placeholder="e.g. I got laid off last month and I'm trying to figure out what help my family can get…"
+    ></textarea>
+
+    <div class="chat-actions">
+      <button type="button" class="mic-btn" aria-label="Record a voice note">
+        <span class="mic-ring" aria-hidden="true"></span>
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+          <rect x="6" y="1.5" width="4" height="9" rx="2" fill="currentColor" />
+          <path d="M3.5 7.5v0.5a4.5 4.5 0 0 0 9 0v-0.5M8 13.5v1.5M5.5 15h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none" />
+        </svg>
+        <span>Record</span>
+      </button>
+
+      <p class="chat-hint">
+        <span aria-hidden="true">🔒</span>
+        Stays on this page. Nothing is uploaded until you continue.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .context {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-top: 20px;
+  }
+  .context-header { margin-bottom: 18px; }
+  .context-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  .opt-tag {
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .context-title {
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .context-body {
+    color: var(--ink-2);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 44rem;
+  }
+
+  .chatbox {
+    background: var(--surface);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    padding: 16px 16px 12px;
+    transition: border-color 0.15s;
+  }
+  .chatbox:focus-within { border-color: var(--blue); }
+
+  .chat-input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 72px;
+    padding: 0;
+  }
+  .chat-input::placeholder { color: var(--ink-3); }
+  .chat-input:focus { outline: none; }
+
+  .chat-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    flex-wrap: wrap;
+  }
+  .chat-hint {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #fff;
+    border: 0;
+    padding: 8px 16px 8px 14px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .mic-btn:hover { background: var(--blue-strong); }
+  .mic-btn.is-recording { background: var(--rust); }
+  .mic-btn.is-recording .mic-ring { animation: pulse 1.2s ease-out infinite; }
+  .mic-ring {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: var(--radius-pill);
+    border: 2px solid currentColor;
+    opacity: 0;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.35); }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.mic-btn');
+  btn?.addEventListener('click', () => {
+    btn.classList.toggle('is-recording');
+    const label = btn.querySelector('span:last-child');
+    if (label) label.textContent = btn.classList.contains('is-recording') ? 'Stop' : 'Record';
+  });
+</script>

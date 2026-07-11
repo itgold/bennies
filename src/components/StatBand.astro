@@ -1,0 +1,112 @@
+---
+---
+<section class="band" aria-label="Unclaimed benefits statistic">
+  <div class="band-inner">
+    <div class="band-figure" aria-hidden="true">
+      <span class="band-amount">$140</span>
+      <span class="band-unit">billion</span>
+    </div>
+
+    <div class="band-body">
+      <p class="band-lead">
+        <span class="sr-only">$140 billion </span>
+        in federal and state benefits go unclaimed in the U.S. every year.
+      </p>
+      <p class="band-note">
+        Not because people don't qualify — because the system is hard to navigate.
+        That's the part we're trying to fix.
+      </p>
+    </div>
+
+    <div class="band-source">
+      <p class="band-source-label">Source</p>
+      <p class="band-source-text">Congressional Research Service, USDA, IRS</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    background: var(--surface-white);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 0;
+    position: relative;
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--blue);
+  }
+  .band-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .band-figure {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--font-numeric);
+    font-feature-settings: "tnum";
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--accent-strong);
+  }
+  .band-amount {
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
+    font-weight: 800;
+  }
+  .band-unit {
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .band-body { max-width: 40rem; }
+  .band-lead {
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.4;
+    font-weight: 500;
+    margin: 0 0 6px;
+  }
+  .band-note {
+    color: var(--ink-2);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .band-source { text-align: right; }
+  .band-source-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+  .band-source-text {
+    font-size: 0.78rem;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 12rem;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 820px) {
+    .band-inner { grid-template-columns: 1fr; gap: 16px; }
+    .band-source { text-align: left; }
+    .band-source-text { max-width: none; }
+  }
+</style>

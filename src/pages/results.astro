@@ -1,0 +1,277 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ProgramCard from '../components/ProgramCard.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const programs = await getCollection('samplePrograms');
+
+// Rough total (sample data only)
+const totalEstimate = 24000;
+---
+<BaseLayout title="Bennies — Your results">
+  <Header step={3} totalSteps={3} />
+  <main id="main">
+    <div class="container">
+      <section class="results-hero" aria-labelledby="results-heading">
+        <p class="section-eyebrow eyebrow-blue">Your results</p>
+        <h1 id="results-heading">
+          Based on what you shared, you may qualify for <span class="hl hl-blue">{programs.length} programs</span>.
+        </h1>
+        <p class="results-lead">
+          Each match is estimated from real federal and state rules — every number links to the
+          exact regulation so you can verify it. This is a guide, not a decision.
+          The agency reviewing your application makes the final call.
+        </p>
+
+        <div class="totals" role="group" aria-label="Summary">
+          <div class="total-item">
+            <p class="total-label">Estimated total</p>
+            <p class="total-figure">
+              <span class="total-num">${totalEstimate.toLocaleString()}</span>
+              <span class="total-unit">/ yr potential</span>
+            </p>
+          </div>
+          <div class="total-item">
+            <p class="total-label">Programs matched</p>
+            <p class="total-figure">
+              <span class="total-num">{programs.length}</span>
+              <span class="total-unit">across 5 categories</span>
+            </p>
+          </div>
+          <div class="total-item">
+            <p class="total-label">Documents to gather</p>
+            <p class="total-figure">
+              <span class="total-num">7</span>
+              <span class="total-unit">unique docs total</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <a class="btn btn-primary" href="#programs">
+            View all programs
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </a>
+          <button type="button" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M2 5h10M2 5l3 3 3-3M2 5v5a1 1 0 0 0 1 1h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            Email me these results
+          </button>
+          <button type="button" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M4 5v-3h6v3M2 5h10v5H2z M4 10h6v2H4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+            </svg>
+            Print this list
+          </button>
+        </div>
+      </section>
+
+      <section class="filter-bar" aria-label="Filter and sort">
+        <span class="filter-label">Sorted by</span>
+        <div class="filter-group" role="tablist">
+          <button class="filter-chip is-active" type="button">Estimated amount</button>
+          <button class="filter-chip" type="button">Confidence</button>
+          <button class="filter-chip" type="button">Application deadline</button>
+        </div>
+        <span class="filter-tag">Showing all categories</span>
+      </section>
+
+      <section class="programs" id="programs" aria-label="Your matched programs">
+        {programs.map((p) => (
+          <ProgramCard
+            category={p.data.category}
+            categoryTone={p.data.categoryTone}
+            name={p.data.name}
+            confidence={p.data.confidence}
+            amount={p.data.amount}
+            amountAnnual={p.data.amountAnnual}
+            why={p.data.why}
+            citations={p.data.citations}
+            documents={p.data.documents}
+            deadline={p.data.deadline}
+            renewal={p.data.renewal}
+            processingTime={p.data.processingTime}
+            agency={p.data.agency}
+            applyUrl={p.data.applyUrl}
+            applyMethod={p.data.applyMethod}
+            phone={p.data.phone}
+          />
+        ))}
+      </section>
+
+      <section class="next" aria-labelledby="next-heading">
+        <div class="next-inner">
+          <div>
+            <p class="section-eyebrow eyebrow-blue">Not what you expected?</p>
+            <h2 id="next-heading">Got denied for one of these — or applying for another program?</h2>
+            <p class="next-body">
+              We can explain a denial letter in plain English and draft an appeal that
+              cites the specific rule. Or walk you through any application step by step.
+            </p>
+          </div>
+          <div class="next-actions">
+            <a class="btn btn-primary" href="/appeal">Draft an appeal</a>
+            <a class="btn btn-ghost" href="/onboarding">Update my answers</a>
+          </div>
+        </div>
+      </section>
+
+      <p class="disclaimer">
+        <strong>A note on estimates.</strong>
+        These figures come from published federal and state guidelines applied to the
+        information you shared. Actual benefit amounts and eligibility are determined by
+        the agency that reviews your application. Bennies doesn't submit anything on your
+        behalf — you decide what to apply for and when.
+      </p>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  main { position: relative; }
+  main > .container { position: relative; z-index: 1; }
+
+  .results-hero { padding: 48px 0 32px; max-width: 60rem; }
+  .results-hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    font-weight: 800;
+  }
+  .results-lead {
+    color: var(--ink-2);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 32px;
+    max-width: 44rem;
+  }
+
+  .totals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 0 0 24px;
+  }
+  .total-item {
+    padding: 0 24px;
+    border-right: 1px solid var(--line);
+  }
+  .total-item:first-child { padding-left: 0; }
+  .total-item:last-child { border-right: 0; padding-right: 0; }
+  .total-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .total-figure { display: flex; align-items: baseline; gap: 8px; margin: 0; }
+  .total-num {
+    font-family: var(--font-numeric);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--blue-strong);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-feature-settings: "tnum";
+  }
+  .total-unit { font-size: 0.85rem; color: var(--ink-3); }
+
+  .results-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 32px 0 24px;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+  }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-chip {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .filter-chip:hover { border-color: var(--blue); color: var(--ink); }
+  .filter-chip.is-active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+  }
+  .filter-tag {
+    margin-left: auto;
+    font-size: 0.82rem;
+    color: var(--ink-3);
+  }
+
+  .programs { padding: 8px 0 24px; }
+
+  /* Next steps */
+  .next {
+    background: var(--blue-soft);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin: 32px 0;
+  }
+  .next-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .next h2 {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  .next-body { color: var(--ink-2); margin: 0; font-size: 0.95rem; line-height: 1.55; max-width: 34rem; }
+  .next-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .disclaimer {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    color: var(--ink-2);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: 24px 0 48px;
+  }
+  .disclaimer strong { color: var(--ink); font-weight: 700; }
+
+  @media (max-width: 820px) {
+    .totals { grid-template-columns: 1fr; padding: 0; gap: 0; }
+    .total-item { padding: 20px 24px; border-right: 0; border-bottom: 1px solid var(--line); }
+    .total-item:last-child { border-bottom: 0; }
+    .next-inner { grid-template-columns: 1fr; }
+  }
+</style>

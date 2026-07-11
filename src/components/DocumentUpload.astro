@@ -1,0 +1,206 @@
+---
+const acceptedDocs = [
+  'Pay stub',
+  'Tax return',
+  'Benefits letter',
+  'Bill or utility statement',
+  'ID or residency doc',
+  'Anything else',
+];
+---
+<section class="upload" aria-labelledby="upload-heading">
+  <div class="upload-header">
+    <p class="upload-eyebrow">
+      <span class="opt-tag">Optional</span>
+      Share more, if you'd like
+    </p>
+    <h2 id="upload-heading" class="upload-title">
+      A document can help us <span class="hl hl-blue">tailor your results</span>.
+    </h2>
+    <p class="upload-body">
+      If you have a pay stub, tax form, benefits letter, or anything else handy — you can share it here.
+      The more we know about your situation, the more accurate our suggestions can be.
+      <strong>This is completely optional.</strong> Share only what you're comfortable with —
+      nothing is stored on our servers, and nothing is sent to any agency.
+    </p>
+  </div>
+
+  <label class="dropzone" for="doc-input">
+    <input id="doc-input" name="documents" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.doc,.docx,image/*" class="sr-only" />
+    <span class="dropzone-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path d="M18 4 v20 M10 12 l 8 -8 l 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        <path d="M4 24 v6 a2 2 0 0 0 2 2 h24 a2 2 0 0 0 2 -2 v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" />
+      </svg>
+    </span>
+    <span class="dropzone-copy">
+      <strong>Click to upload a document</strong>
+      <span>or drag and drop it here</span>
+    </span>
+    <span class="dropzone-hint">PDF, JPG, PNG, HEIC · up to 10&nbsp;MB each</span>
+  </label>
+
+  <div class="accepted">
+    <p class="accepted-label">Things people commonly share</p>
+    <ul class="accepted-list">
+      {acceptedDocs.map((d) => (
+        <li class="accepted-pill">{d}</li>
+      ))}
+    </ul>
+  </div>
+
+  <p class="upload-file-list" id="file-list" aria-live="polite" data-empty="No files added yet.">
+    No files added yet.
+  </p>
+</section>
+
+<style>
+  .upload {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-top: 28px;
+  }
+  .upload-header { margin-bottom: 20px; }
+  .upload-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  .opt-tag {
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .upload-title {
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .upload-body {
+    color: var(--ink-2);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 44rem;
+  }
+  .upload-body strong { color: var(--ink); font-weight: 600; }
+
+  .dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 32px 20px;
+    border: 2px dashed var(--line-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    color: var(--ink-2);
+  }
+  .dropzone:hover,
+  .dropzone.is-drag {
+    border-color: var(--blue);
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+  }
+  .dropzone:focus-within { outline: var(--focus-ring); outline-offset: 3px; }
+
+  .dropzone-icon { color: var(--blue); }
+  .dropzone-copy { display: flex; flex-direction: column; gap: 2px; }
+  .dropzone-copy strong { color: var(--ink); font-size: 1rem; font-weight: 600; }
+  .dropzone-copy span { font-size: 0.9rem; color: var(--ink-3); }
+  .dropzone-hint {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    margin-top: 4px;
+  }
+
+  .accepted { margin-top: 20px; }
+  .accepted-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .accepted-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .accepted-pill {
+    display: inline-flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .upload-file-list {
+    margin: 20px 0 0;
+    font-size: 0.9rem;
+    color: var(--ink-3);
+  }
+  .upload-file-list:not([data-empty="No files added yet."]) { color: var(--ink); }
+</style>
+
+<script>
+  const dz = document.querySelector<HTMLLabelElement>('.dropzone');
+  const input = document.getElementById('doc-input') as HTMLInputElement | null;
+  const list = document.getElementById('file-list');
+  if (dz && input && list) {
+    const render = (files: FileList | null) => {
+      if (!files || files.length === 0) {
+        list.textContent = 'No files added yet.';
+        list.setAttribute('data-empty', 'No files added yet.');
+        return;
+      }
+      const names = Array.from(files).map((f) => f.name).join(', ');
+      list.textContent = `${files.length} file${files.length === 1 ? '' : 's'} ready: ${names}`;
+      list.setAttribute('data-empty', '');
+    };
+    input.addEventListener('change', () => render(input.files));
+
+    ['dragenter', 'dragover'].forEach((ev) => {
+      dz.addEventListener(ev, (e) => {
+        e.preventDefault();
+        dz.classList.add('is-drag');
+      });
+    });
+    ['dragleave', 'drop'].forEach((ev) => {
+      dz.addEventListener(ev, (e) => {
+        e.preventDefault();
+        dz.classList.remove('is-drag');
+      });
+    });
+    dz.addEventListener('drop', (e) => {
+      const dt = (e as DragEvent).dataTransfer;
+      if (dt?.files && dt.files.length > 0) {
+        input.files = dt.files;
+        render(dt.files);
+      }
+    });
+  }
+</script>

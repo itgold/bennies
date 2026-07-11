@@ -1,0 +1,122 @@
+---
+const metrics = [
+  {
+    number: '12,847',
+    label: 'Families helped',
+    sub: 'Since we started',
+  },
+  {
+    number: '$18.4M',
+    label: 'In benefits found',
+    sub: 'That would have gone unclaimed',
+  },
+  {
+    number: '47',
+    label: 'Programs covered',
+    sub: 'Federal, state, and local',
+  },
+  {
+    number: '4',
+    label: 'Languages',
+    sub: 'English, Russian, Vietnamese, Hindi',
+  },
+];
+---
+<section class="impact" aria-labelledby="impact-heading">
+  <header class="impact-header">
+    <p class="section-eyebrow eyebrow-blue">Bennies so far</p>
+    <h2 id="impact-heading" class="section-title">
+      Real people, <span class="hl hl-blue">real relief</span>.
+    </h2>
+    <p class="section-lede">
+      Every number here is money that actually reached a family who thought they didn't qualify.
+    </p>
+  </header>
+
+  <dl class="metric-row">
+    {metrics.map((m) => (
+      <div class="metric">
+        <dt class="metric-label">{m.label}</dt>
+        <dd class="metric-number">{m.number}</dd>
+        <p class="metric-sub">{m.sub}</p>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .impact {
+    padding: 56px 0;
+  }
+  .impact-header {
+    max-width: 40rem;
+    margin: 0 0 32px;
+  }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .metric {
+    padding: 28px 24px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .metric:last-child { border-right: 0; }
+  .metric::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 3px;
+    background: var(--blue);
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+  }
+  .metric-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0;
+  }
+  .metric-number {
+    font-family: var(--font-numeric);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    color: var(--blue-strong);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-feature-settings: "tnum";
+    margin: 4px 0 2px;
+  }
+  .metric-sub {
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    line-height: 1.4;
+    margin: 0;
+    max-width: 16rem;
+  }
+
+  @media (max-width: 820px) {
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .metric:nth-child(2) { border-right: 0; }
+  }
+  @media (max-width: 520px) {
+    .metric-row { grid-template-columns: 1fr; }
+    .metric { border-right: 0 !important; border-bottom: 1px solid var(--line); }
+    .metric:last-child { border-bottom: 0; }
+  }
+</style>

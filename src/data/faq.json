@@ -1,0 +1,32 @@
+[
+  {
+    "id": "scam",
+    "question": "Is this a scam?",
+    "answer": "No. Bennies is a free tool built to help you find and apply for public benefits. We're not selling anything, we won't ask for your Social Security number, and we're not affiliated with any government agency. Every rule we cite links to the official source so you can verify it yourself."
+  },
+  {
+    "id": "account",
+    "question": "Do I need to sign up?",
+    "answer": "No account needed to use anything on this site. Your answers stay in your browser. If you close the tab, they're gone."
+  },
+  {
+    "id": "affect-case",
+    "question": "Will this affect my case?",
+    "answer": "No. Bennies doesn't submit applications for you and doesn't talk to any agency. We help you understand what you may qualify for and how to apply through the official channels. The agency handling your case never sees anything unless you send it to them yourself."
+  },
+  {
+    "id": "wrong",
+    "question": "What if I get something wrong?",
+    "answer": "You won't get in trouble for checking your eligibility on Bennies. The agency reviewing your application makes the final decision based on the paperwork you submit to them. Use Bennies to prepare, then apply through the official channel."
+  },
+  {
+    "id": "cost",
+    "question": "How much does this cost?",
+    "answer": "Nothing. Bennies is free. No fees, no ads, no upgrade tier."
+  },
+  {
+    "id": "who",
+    "question": "Who is behind this?",
+    "answer": "Bennies was built by a small independent team who thinks people shouldn't need a lawyer to figure out what help they qualify for. We're not part of any government agency."
+  }
+]

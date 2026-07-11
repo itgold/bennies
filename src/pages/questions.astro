@@ -1,0 +1,427 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import FormField from '../components/FormField.astro';
+import DocumentUpload from '../components/DocumentUpload.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+// A tailored subset of questions we'd ask based on the scenario.
+// This mirrors what a benefits worker would ask a family with kids who lost work.
+const tailoredQuestions = [
+  {
+    id: 'zip',
+    label: 'What ZIP code do you live in?',
+    icon: '📍',
+    tone: 'blue',
+    type: 'text',
+    placeholder: 'e.g. 93650',
+    reason: 'Programs vary a lot by state and county.',
+  },
+  {
+    id: 'household',
+    label: 'How many people live in your household?',
+    icon: '👨‍👩‍👧',
+    tone: 'blue',
+    type: 'select',
+    options: ['Select', '1', '2', '3', '4', '5', '6+'],
+    reason: 'Household size sets the income threshold for most food and cash programs.',
+  },
+  {
+    id: 'children',
+    label: 'How many are children under 18?',
+    icon: '🧒',
+    tone: 'blue',
+    type: 'select',
+    options: ['Select', '0', '1', '2', '3', '4+'],
+    reason: 'You mentioned two kids — kids open up WIC, CHIP, and family tax credits.',
+  },
+  {
+    id: 'income',
+    label: 'About how much did you earn in the last month?',
+    icon: '💵',
+    tone: 'blue',
+    type: 'range',
+    min: 0,
+    max: 6000,
+    step: 100,
+    default: 800,
+    minLabel: '$0',
+    maxLabel: '$6k+',
+    reason: 'Since you\'re between jobs, recent income (not last year\'s) is what most agencies check first.',
+  },
+  {
+    id: 'last-worked',
+    label: 'When did you last work?',
+    icon: '📅',
+    tone: 'blue',
+    type: 'select',
+    options: ['Select', 'This month', 'Last month', '2–3 months ago', '4–6 months ago', 'Longer'],
+    reason: 'This determines whether you can still apply for unemployment insurance.',
+  },
+  {
+    id: 'housing',
+    label: 'What\'s your housing situation right now?',
+    icon: '🏠',
+    tone: 'blue',
+    type: 'select',
+    options: ['Select', 'I rent', 'I own', 'Staying with family or friends', 'Shelter or transitional', 'Unhoused', 'Other'],
+    reason: 'You mentioned rent is due — this helps us find emergency rental assistance.',
+  },
+];
+---
+<BaseLayout title="Bennies — A few follow-ups">
+  <Header step={2} totalSteps={3} />
+  <main id="main">
+    <div class="container step-page">
+      <section class="panel" aria-labelledby="q-heading">
+        <p class="section-eyebrow eyebrow-blue">Step 2 of 3 · A few follow-ups</p>
+        <h1 id="q-heading">Based on what you shared, here's what we need.</h1>
+        <p class="sub">
+          These questions were picked based on your story — not a generic list.
+          Every one has a reason we're asking.
+        </p>
+
+        <div class="echo" aria-label="What you told us">
+          <p class="echo-label">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M2 10V4a1 1 0 0 1 1-1h6l3 3v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+            </svg>
+            You told us
+          </p>
+          <blockquote class="echo-quote" id="echo-quote">
+            "I got laid off from a warehouse job last month. I've been trying to find work but nothing yet.
+            I have two kids — one's 3 and the other's 6 — and rent is due in ten days.
+            My youngest is on WIC I think but the older one isn't on anything.
+            I don't have insurance anymore and I don't know what I qualify for."
+          </blockquote>
+          <a href="/onboarding" class="echo-edit">Edit my story</a>
+        </div>
+
+        <form class="form" method="post" action="/results">
+          <ol class="q-list">
+            {tailoredQuestions.map((q, i) => (
+              <li class="q-item">
+                <div class="q-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+                <div class="q-body">
+                  <p class="q-reason">
+                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" fill="none">
+                      <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+                      <path d="M6 3v3.5M6 8.4v.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                    Why we're asking · {q.reason}
+                  </p>
+                  <FormField
+                    id={q.id}
+                    label={q.label}
+                    icon={q.icon}
+                    tone={q.tone as any}
+                    type={q.type as any}
+                    placeholder={q.placeholder}
+                    options={q.options}
+                    min={q.min}
+                    max={q.max}
+                    step={q.step}
+                    defaultValue={q.default}
+                    minLabel={q.minLabel}
+                    maxLabel={q.maxLabel}
+                  />
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <DocumentUpload />
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-block">
+              See my matches
+              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/>
+              </svg>
+            </button>
+            <a class="btn btn-ghost btn-block" href="/onboarding">← Back to my story</a>
+          </div>
+        </form>
+      </section>
+
+      <aside class="side-panel" aria-label="Notes about your privacy">
+        <div class="note-card">
+          <p class="note-eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            You're at step 2 of 3
+          </p>
+          <ol class="progress-list">
+            <li class="done">
+              <span class="pip" aria-hidden="true">
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div>
+                <strong>Your story</strong>
+                <span>Told us what's going on</span>
+              </div>
+            </li>
+            <li class="active">
+              <span class="pip" aria-hidden="true">2</span>
+              <div>
+                <strong>Quick follow-ups</strong>
+                <span>Just the details we need</span>
+              </div>
+            </li>
+            <li>
+              <span class="pip" aria-hidden="true">3</span>
+              <div>
+                <strong>Your programs</strong>
+                <span>Tailored list with amounts &amp; docs</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="note-card note-card-tip">
+          <p class="tip-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.5 2.5l1.4 1.4M10.1 10.1l1.4 1.4M2.5 11.5l1.4-1.4M10.1 3.9l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+              <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
+            </svg>
+            A tip from the desk
+          </p>
+          <p class="tip-body">
+            <strong>Answer honestly, even if you're not sure.</strong>
+            You won't get in trouble for what you put here — this is just to help
+            you find the right programs. The agency you apply to makes the actual call.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .step-page {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    align-items: flex-start;
+    padding-top: 40px;
+    padding-bottom: 56px;
+  }
+  .panel {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow);
+  }
+  h1 {
+    font-size: clamp(1.9rem, 3.5vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 12px 0 10px;
+    font-weight: 700;
+  }
+  .sub {
+    color: var(--ink-2);
+    margin: 0 0 24px;
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 44rem;
+  }
+
+  /* Echo card */
+  .echo {
+    background: var(--blue-soft);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    margin: 0 0 32px;
+    position: relative;
+  }
+  .echo-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue-strong);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .echo-quote {
+    margin: 0;
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-style: italic;
+    max-width: 46rem;
+  }
+  .echo-edit {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--blue-strong);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Questions list */
+  .q-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+  .q-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .q-num {
+    font-family: var(--font-numeric);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue-strong);
+    padding-top: 32px;
+    letter-spacing: 0.05em;
+    font-feature-settings: "tnum";
+  }
+  .q-reason {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0 0 14px;
+    max-width: max-content;
+  }
+
+  .form-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .btn-block { width: 100%; }
+
+  /* Side panel */
+  .side-panel { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .note-card {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .note-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--blue-strong);
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .note-eyebrow .dot {
+    width: 8px; height: 8px;
+    border-radius: var(--radius-pill);
+    background: var(--blue);
+  }
+
+  .progress-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    counter-reset: step;
+  }
+  .progress-list li {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 12px;
+    align-items: start;
+    font-size: 0.9rem;
+    color: var(--ink-3);
+  }
+  .progress-list li strong { color: var(--ink-2); font-weight: 700; display: block; }
+  .progress-list li span:last-child { font-size: 0.82rem; color: var(--ink-3); }
+  .progress-list li.done strong { color: var(--ink); }
+  .progress-list li.active strong { color: var(--blue-strong); }
+  .progress-list li.active span:last-child { color: var(--ink-2); }
+  .pip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-2);
+    color: var(--ink-3);
+    font-size: 0.78rem;
+    font-weight: 700;
+    border: 1px solid var(--line);
+  }
+  .progress-list .done .pip {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+  }
+  .progress-list .active .pip {
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    border-color: var(--blue);
+  }
+
+  .note-card-tip { background: var(--mustard-soft); border-color: var(--mustard); }
+  .tip-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mustard-strong);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .tip-body {
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .tip-body strong { display: block; margin-bottom: 4px; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .step-page { grid-template-columns: 1fr; }
+    .side-panel { position: static; }
+  }
+  @media (max-width: 600px) {
+    .panel { padding: 24px; }
+    .q-item { grid-template-columns: 32px 1fr; gap: 10px; }
+  }
+</style>
+
+<script>
+  // If a scenario was passed in the URL, echo it back
+  const params = new URLSearchParams(window.location.search);
+  const scenario = params.get('scenario');
+  if (scenario) {
+    const el = document.getElementById('echo-quote');
+    if (el) el.textContent = `"${scenario}"`;
+  }
+</script>

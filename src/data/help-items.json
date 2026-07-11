@@ -1,0 +1,29 @@
+[
+  {
+    "id": "eligibility",
+    "icon": "📋",
+    "tone": "green",
+    "title": "See what you might qualify for",
+    "body": "Answer a few questions about your household. We'll show you programs — food help, health coverage, tax credits, cash assistance, utilities — that match your situation. Every match links to the actual rule so you can see for yourself.",
+    "cta": "Check my eligibility",
+    "href": "/onboarding"
+  },
+  {
+    "id": "denial",
+    "icon": "✉️",
+    "tone": "rust",
+    "title": "Make sense of a denial letter",
+    "body": "Got a letter and don't know what it says or why you were denied? Paste it in and we'll translate it into plain English, explain your options, and draft an appeal you can send.",
+    "cta": "I got a denial letter",
+    "href": "/appeal"
+  },
+  {
+    "id": "application",
+    "icon": "📝",
+    "tone": "blue",
+    "title": "Get through the paperwork",
+    "body": "Applications are long. We'll walk you through what each question is really asking, what documents you'll need, and where to send it when you're done.",
+    "cta": "Help me apply",
+    "href": "/apply"
+  }
+]

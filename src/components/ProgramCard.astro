@@ -1,0 +1,352 @@
+---
+interface Props {
+  category: string;
+  categoryTone: 'green' | 'blue' | 'pink' | 'amber' | 'purple' | 'rust' | 'plum' | 'mustard';
+  name: string;
+  confidence: string;
+  amount: string;
+  amountAnnual: string;
+  why: string;
+  citations: Array<{ label: string; url: string }>;
+  documents: string[];
+  deadline: string;
+  renewal: string;
+  processingTime: string;
+  agency: string;
+  applyUrl: string;
+  applyMethod: string;
+  phone: string;
+}
+const {
+  category, categoryTone, name, confidence,
+  amount, amountAnnual, why, citations,
+  documents, deadline, renewal, processingTime,
+  agency, applyUrl, applyMethod, phone,
+} = Astro.props;
+---
+<article class={`prog tone-${categoryTone}`}>
+  <div class="prog-head">
+    <div class="prog-title">
+      <p class="prog-cat">
+        <span class="cat-dot" aria-hidden="true"></span>
+        {category}
+      </p>
+      <h3 class="prog-name">{name}</h3>
+      <p class="prog-confidence">
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+          <path d="M2 7l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        {confidence}
+      </p>
+    </div>
+    <div class="prog-money">
+      <span class="prog-amount">{amount}</span>
+      <span class="prog-amount-sub">{amountAnnual}</span>
+    </div>
+  </div>
+
+  <div class="prog-why">
+    <p class="prog-why-label">Why you likely qualify</p>
+    <p class="prog-why-text">{why}</p>
+    <div class="prog-cites">
+      {citations.map((c) => (
+        <a class="cite" href={c.url} target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" fill="none">
+            <path d="M4 8l4-4M5 4h3v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          {c.label}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <details class="prog-details">
+    <summary>
+      <span>See what you'll need to apply</span>
+      <span class="caret" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>
+    </summary>
+
+    <div class="details-body">
+      <section class="docs">
+        <p class="detail-label">Bring these documents</p>
+        <ul class="doc-list">
+          {documents.map((d) => (
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+              </span>
+              {d}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <dl class="meta">
+        <div>
+          <dt>Application window</dt>
+          <dd>{deadline}</dd>
+        </div>
+        <div>
+          <dt>Processing time</dt>
+          <dd>{processingTime}</dd>
+        </div>
+        <div>
+          <dt>Renewal</dt>
+          <dd>{renewal}</dd>
+        </div>
+        <div>
+          <dt>Agency</dt>
+          <dd>{agency}</dd>
+        </div>
+      </dl>
+    </div>
+  </details>
+
+  <footer class="prog-actions">
+    <a class="btn btn-primary" href={applyUrl} target="_blank" rel="noopener">
+      Start application
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+        <path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </a>
+    <div class="apply-meta">
+      <p><strong>How to apply:</strong> {applyMethod}</p>
+      <p><strong>Phone:</strong> <a href={`tel:${phone.replace(/[^0-9]/g, '')}`}>{phone}</a></p>
+    </div>
+  </footer>
+</article>
+
+<style>
+  .prog {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s;
+  }
+  .prog:hover { box-shadow: var(--shadow); }
+  .prog::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 4px;
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+    background: var(--blue);
+  }
+
+  .prog-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .prog-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    display: inline-block;
+  }
+  .tone-green .cat-dot { background: var(--accent); }
+  .tone-blue .cat-dot { background: var(--blue); }
+  .tone-rust .cat-dot { background: var(--rust); }
+  .tone-plum .cat-dot { background: var(--plum); }
+  .tone-mustard .cat-dot { background: var(--mustard); }
+
+  .prog-name {
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+  .prog-confidence {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .prog-money {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .prog-amount {
+    font-family: var(--font-numeric);
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--blue-strong);
+    line-height: 1;
+    font-feature-settings: "tnum";
+  }
+  .prog-amount-sub {
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  .prog-why {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .prog-why-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .prog-why-text {
+    color: var(--ink);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0 0 12px;
+  }
+  .prog-cites { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cite {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--blue-strong);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .cite:hover { background: var(--blue-soft); border-color: var(--blue); }
+
+  /* Details expander */
+  .prog-details { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .prog-details summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.98rem;
+  }
+  .prog-details summary::-webkit-details-marker { display: none; }
+  .caret { color: var(--ink-3); transition: transform 0.2s; display: inline-flex; }
+  .prog-details[open] .caret { transform: rotate(180deg); color: var(--blue); }
+
+  .details-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 18px;
+  }
+  .detail-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .doc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .doc-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--ink-2);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .check {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-sm);
+    background: var(--blue-soft);
+    color: var(--blue-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .meta {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .meta > div { display: flex; flex-direction: column; gap: 2px; }
+  .meta dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 0;
+  }
+  .meta dd { margin: 0; color: var(--ink); font-weight: 500; font-size: 0.92rem; line-height: 1.4; }
+
+  .prog-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 20px;
+    flex-wrap: wrap;
+  }
+  .apply-meta {
+    color: var(--ink-2);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    max-width: 30rem;
+  }
+  .apply-meta p { margin: 0; }
+  .apply-meta strong { color: var(--ink); font-weight: 600; }
+  .apply-meta a { color: var(--blue-strong); font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .prog-head { grid-template-columns: 1fr; }
+    .prog-money { text-align: left; flex-direction: row; align-items: baseline; gap: 8px; }
+    .details-body { grid-template-columns: 1fr; gap: 20px; }
+  }
+</style>

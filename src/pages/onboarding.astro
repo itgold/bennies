@@ -1,56 +1,120 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import FormField from '../components/FormField.astro';
-import MascotCard from '../components/MascotCard.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
-const fields = await getCollection('formFields');
+const starters = [
+  'I lost my job',
+  'I\'m homeless',
+  'I\'m pregnant',
+  'I need help with rent',
+  'I\'m caring for a parent',
+  'I\'m a veteran',
+  'I just moved here',
+  'I can\'t afford my meds',
+];
 ---
-<BaseLayout title="Bennies — Let's find opportunities for you">
-  <Header step={1} totalSteps={4} />
+<BaseLayout title="Bennies — Tell us what's going on">
+  <Header step={1} totalSteps={3} />
   <main id="main">
-    <div class="container onboarding">
-      <section class="form-panel" aria-labelledby="form-heading">
-        <h1 id="form-heading">Let's find opportunities for you</h1>
+    <div class="container step-page">
+      <section class="panel" aria-labelledby="scenario-heading">
+        <div class="panel-top">
+          <p class="section-eyebrow eyebrow-blue">Step 1 of 3 · Your situation</p>
+          <button
+            type="button"
+            id="demo-fill"
+            class="demo-pill"
+            aria-label="Auto-fill with a sample scenario for demo"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+              <path d="M4 2h6l2 3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h1" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+              <path d="M5 6l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span>Load a demo scenario</span>
+          </button>
+        </div>
+
+        <h1 id="scenario-heading">Tell us what's going on.</h1>
         <p class="sub">
-          Answer a few quick questions so we can match you with benefits you're eligible for.
+          In your own words. Type or talk — whatever's easier.
+          We'll ask a few follow-ups based on what you share.
         </p>
 
-        <form class="form" method="post" action="/onboarding/step-2">
-          {fields.map((f) => (
-            <FormField
-              id={f.data.id}
-              label={f.data.label}
-              icon={f.data.icon}
-              tone={f.data.tone}
-              type={f.data.type}
-              placeholder={f.data.placeholder}
-              options={f.data.options}
-              min={f.data.min}
-              max={f.data.max}
-              step={f.data.step}
-              defaultValue={f.data.default}
-              minLabel={f.data.minLabel}
-              maxLabel={f.data.maxLabel}
-            />
-          ))}
+        <form class="chat-form" action="/questions" method="get">
+          <div class="chat-shell">
+            <textarea
+              id="scenario"
+              name="scenario"
+              class="chat-input"
+              rows="6"
+              placeholder="e.g. I lost my job last month. I have two kids, one is a toddler. Rent is due next week and I don't know what to do…"
+              required
+            ></textarea>
+
+            <div class="chat-toolbar">
+              <button type="button" class="mic-btn" aria-label="Record a voice note">
+                <span class="mic-ring" aria-hidden="true"></span>
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                  <rect x="6" y="1.5" width="4" height="9" rx="2" fill="currentColor" />
+                  <path d="M3.5 7.5v0.5a4.5 4.5 0 0 0 9 0v-0.5M8 13.5v1.5M5.5 15h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none" />
+                </svg>
+                <span class="mic-label">Record</span>
+              </button>
+              <p class="chat-hint">
+                <span aria-hidden="true">🔒</span>
+                Nothing is saved on our servers.
+              </p>
+            </div>
+          </div>
+
+          <div class="starters" aria-label="Common ways to start">
+            <p class="starters-label">Not sure where to begin? Try one:</p>
+            <ul class="starter-list">
+              {starters.map((s) => (
+                <li>
+                  <button type="button" class="starter-chip" data-starter={s}>{s}</button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-block">
-              Continue <span aria-hidden="true">→</span>
+              Continue
+              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/>
+              </svg>
             </button>
-            <a class="btn-link" href="/dashboard">Skip for now</a>
-            <p class="form-note" aria-live="polite">
-              <span aria-hidden="true">⏱</span> Takes less than 2 minutes
-            </p>
           </div>
         </form>
       </section>
 
-      <aside class="side-panel">
-        <MascotCard />
+      <aside class="side-panel" aria-label="Notes about your privacy">
+        <div class="note-card">
+          <p class="note-eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            What happens next
+          </p>
+          <ul class="note-list">
+            <li>
+              <strong>Step 1 · Your story.</strong>
+              Tell us what's going on. Details help us tailor questions.
+            </li>
+            <li>
+              <strong>Step 2 · Quick follow-ups.</strong>
+              Just a few questions we need — nothing off-topic.
+            </li>
+            <li>
+              <strong>Step 3 · Your programs.</strong>
+              A tailored list with amounts, deadlines, and documents you'll need.
+            </li>
+            <li>
+              <strong>Nothing leaves your browser.</strong>
+              No account, no SSN, no data shared with any agency.
+            </li>
+          </ul>
+        </div>
       </aside>
     </div>
   </main>
@@ -58,42 +122,256 @@ const fields = await getCollection('formFields');
 </BaseLayout>
 
 <style>
-  .onboarding {
+  .step-page {
     display: grid;
     grid-template-columns: 1fr 320px;
     gap: 40px;
     align-items: flex-start;
-    padding-top: 32px;
-    padding-bottom: 48px;
+    padding-top: 40px;
+    padding-bottom: 56px;
   }
-  .form-panel {
-    background: var(--surface);
+  .panel {
+    background: var(--surface-white);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 32px;
+    padding: 40px;
     box-shadow: var(--shadow);
   }
-  .form-panel h1 { font-size: 1.85rem; margin: 0 0 6px; }
-  .sub { color: var(--ink-2); margin: 0 0 20px; }
-  .form { display: block; }
-  .form-actions {
-    margin-top: 24px;
+  .panel-top {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .demo-pill {
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-  }
-  .btn-block { width: 100%; }
-  .form-note {
-    margin: 4px 0 0;
-    color: var(--ink-3);
+    background: var(--mustard-soft);
+    color: var(--mustard-strong);
+    border: 1px dashed var(--mustard);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
     font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .demo-pill:hover { background: var(--mustard); color: #fff; }
+  .demo-pill:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+  h1 {
+    font-size: clamp(1.9rem, 3.5vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 12px 0 10px;
+    font-weight: 700;
+  }
+  .sub {
+    color: var(--ink-2);
+    margin: 0 0 24px;
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 44rem;
   }
 
+  /* Chat shell */
+  .chat-shell {
+    background: var(--surface);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    padding: 20px 20px 14px;
+    transition: border-color 0.15s;
+  }
+  .chat-shell:focus-within { border-color: var(--blue); }
+  .chat-input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 140px;
+    padding: 0;
+  }
+  .chat-input::placeholder { color: var(--ink-3); }
+  .chat-input:focus { outline: none; }
+
+  .chat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    flex-wrap: wrap;
+  }
+  .chat-hint {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #fff;
+    border: 0;
+    padding: 8px 16px 8px 14px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .mic-btn:hover { background: var(--blue-strong); }
+  .mic-btn.is-recording { background: var(--rust); }
+  .mic-btn.is-recording .mic-ring { animation: pulse 1.2s ease-out infinite; }
+  .mic-ring {
+    position: absolute;
+    left: -4px; top: -4px; right: -4px; bottom: -4px;
+    border-radius: var(--radius-pill);
+    border: 2px solid currentColor;
+    opacity: 0;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.35); }
+  }
+
+  /* Starters */
+  .starters { margin-top: 24px; }
+  .starters-label {
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+  .starter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .starter-chip {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .starter-chip:hover { border-color: var(--blue); color: var(--blue-strong); background: var(--blue-soft); }
+
+  .form-actions { margin-top: 28px; }
+  .btn-block { width: 100%; }
+
+  /* Side panel */
+  .side-panel { position: sticky; top: 20px; }
+  .note-card {
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .note-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--blue-strong);
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .note-eyebrow .dot {
+    width: 8px; height: 8px;
+    border-radius: var(--radius-pill);
+    background: var(--blue);
+  }
+  .note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .note-list li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding-left: 14px;
+    border-left: 2px solid var(--blue-soft);
+  }
+  .note-list strong { color: var(--ink); font-weight: 700; display: block; margin-bottom: 2px; }
+
   @media (max-width: 900px) {
-    .onboarding { grid-template-columns: 1fr; }
+    .step-page { grid-template-columns: 1fr; }
+    .side-panel { position: static; }
   }
   @media (max-width: 600px) {
-    .form-panel { padding: 20px; }
+    .panel { padding: 24px; }
   }
 </style>
+
+<script>
+  // Mic toggle
+  const mic = document.querySelector<HTMLButtonElement>('.mic-btn');
+  mic?.addEventListener('click', () => {
+    mic.classList.toggle('is-recording');
+    const label = mic.querySelector<HTMLSpanElement>('.mic-label');
+    if (label) label.textContent = mic.classList.contains('is-recording') ? 'Stop' : 'Record';
+  });
+
+  // Starter chips fill the textarea
+  const input = document.getElementById('scenario') as HTMLTextAreaElement | null;
+  document.querySelectorAll<HTMLButtonElement>('.starter-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const val = btn.getAttribute('data-starter') ?? '';
+      if (input) {
+        input.value = input.value ? `${input.value.trim()} ${val}` : val;
+        input.focus();
+      }
+    });
+  });
+
+  // Load demo scenario
+  document.getElementById('demo-fill')?.addEventListener('click', () => {
+    if (input) {
+      input.value =
+        "I got laid off from a warehouse job last month. I've been trying to find work but nothing yet. I have two kids — one's 3 and the other's 6 — and rent is due in ten days. My youngest is on WIC I think but the older one isn't on anything. I don't have insurance anymore and I don't know what I qualify for.";
+      input.focus();
+    }
+    const pill = document.getElementById('demo-fill');
+    const label = pill?.querySelector('span');
+    const original = label?.textContent ?? 'Load a demo scenario';
+    if (label) label.textContent = 'Loaded ✓';
+    pill?.setAttribute('disabled', 'true');
+    setTimeout(() => {
+      if (label) label.textContent = original;
+      pill?.removeAttribute('disabled');
+    }, 1800);
+  });
+</script>

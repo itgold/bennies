@@ -1,0 +1,141 @@
+[
+  {
+    "id": "calfresh",
+    "category": "Food & nutrition",
+    "categoryTone": "green",
+    "name": "CalFresh (SNAP)",
+    "confidence": "Likely eligible",
+    "amount": "~$540 / mo",
+    "amountAnnual": "~$6,480 / yr",
+    "why": "Household income ($2,200/mo) is below 130% of the Federal Poverty Line for a household of 3 ($2,776/mo). Categorically eligible with children in the household.",
+    "citations": [
+      { "label": "7 CFR § 273.9", "url": "https://www.ecfr.gov/current/title-7/subtitle-B/chapter-II/subchapter-C/part-273/subpart-D/section-273.9" },
+      { "label": "USDA SNAP", "url": "https://www.fns.usda.gov/snap/recipient/eligibility" }
+    ],
+    "documents": [
+      "Photo ID (driver's license or state ID)",
+      "Proof of income (last 30 days of pay stubs)",
+      "Proof of residency (utility bill or lease)",
+      "Social Security numbers for household members",
+      "Recent rent or mortgage statement"
+    ],
+    "deadline": "Open enrollment — apply any time",
+    "renewal": "Recertify every 12 months",
+    "processingTime": "~30 days · Expedited within 3 days if urgent",
+    "agency": "CalFresh (CDSS)",
+    "applyUrl": "https://www.getcalfresh.org",
+    "applyMethod": "Online at GetCalFresh.org, by phone, or at your county office",
+    "phone": "1-877-847-3663"
+  },
+  {
+    "id": "medical",
+    "category": "Healthcare",
+    "categoryTone": "blue",
+    "name": "Medi-Cal (Medicaid)",
+    "confidence": "Likely eligible",
+    "amount": "Full coverage",
+    "amountAnnual": "~$6,000 value / yr",
+    "why": "Household income is below 138% of the Federal Poverty Line ($2,948/mo for a household of 3). California expanded Medicaid under the ACA.",
+    "citations": [
+      { "label": "42 U.S.C. § 1396a(a)(10)", "url": "https://www.law.cornell.edu/uscode/text/42/1396a" },
+      { "label": "Medi-Cal Eligibility", "url": "https://www.dhcs.ca.gov/services/medi-cal" }
+    ],
+    "documents": [
+      "Photo ID",
+      "Proof of income (pay stubs, tax return)",
+      "Proof of California residency",
+      "Social Security numbers (if applicable)",
+      "Immigration documents (if applicable)"
+    ],
+    "deadline": "Open enrollment — apply any time",
+    "renewal": "Renew annually with income verification",
+    "processingTime": "~45 days · Coverage may start on application date",
+    "agency": "Covered California / Medi-Cal",
+    "applyUrl": "https://www.coveredca.com",
+    "applyMethod": "Apply at CoveredCA.com or call the county office",
+    "phone": "1-800-300-1506"
+  },
+  {
+    "id": "eitc",
+    "category": "Tax credits",
+    "categoryTone": "plum",
+    "name": "Earned Income Tax Credit (EITC)",
+    "confidence": "Very likely eligible",
+    "amount": "~$6,960",
+    "amountAnnual": "one-time refund",
+    "why": "Working income under the EITC ceiling with 2 qualifying children. Based on 2024 IRS tables — refund amount depends on exact earnings.",
+    "citations": [
+      { "label": "26 U.S.C. § 32", "url": "https://www.law.cornell.edu/uscode/text/26/32" },
+      { "label": "IRS EITC Tables", "url": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables" }
+    ],
+    "documents": [
+      "W-2 forms from all employers",
+      "1099s if self-employed",
+      "Social Security cards for you and each child",
+      "Child's birth certificate or school records",
+      "Photo ID"
+    ],
+    "deadline": "File by April 15, 2026 (or with an extension)",
+    "renewal": "Claim each year at tax time",
+    "processingTime": "Refund typically within 21 days of e-filing",
+    "agency": "IRS (with your tax return)",
+    "applyUrl": "https://www.irs.gov/freefile",
+    "applyMethod": "Claim on Form 1040, Schedule EIC · Free filing at IRS.gov/freefile",
+    "phone": "1-800-829-1040"
+  },
+  {
+    "id": "wic",
+    "category": "Family support",
+    "categoryTone": "rust",
+    "name": "WIC (Women, Infants & Children)",
+    "confidence": "Likely eligible",
+    "amount": "~$100 / mo",
+    "amountAnnual": "food benefits + nutrition services",
+    "why": "Household has a child under age 5 and income is at or below 185% of the Federal Poverty Line ($3,952/mo for a household of 3).",
+    "citations": [
+      { "label": "7 CFR § 246.7", "url": "https://www.ecfr.gov/current/title-7/subtitle-B/chapter-II/subchapter-A/part-246/section-246.7" },
+      { "label": "USDA WIC", "url": "https://www.fns.usda.gov/wic/eligibility" }
+    ],
+    "documents": [
+      "Photo ID for the parent",
+      "Proof of income (pay stubs or benefits letter)",
+      "Proof of address",
+      "Child's medical or immunization records"
+    ],
+    "deadline": "Open enrollment — apply any time",
+    "renewal": "Renew every 6–12 months depending on child's age",
+    "processingTime": "Same-day certification at most WIC clinics",
+    "agency": "California WIC Program",
+    "applyUrl": "https://www.cdph.ca.gov/Programs/CFH/DWICSN",
+    "applyMethod": "Call your local WIC clinic to schedule an appointment",
+    "phone": "1-888-942-9675"
+  },
+  {
+    "id": "liheap",
+    "category": "Housing & utilities",
+    "categoryTone": "mustard",
+    "name": "LIHEAP (Energy Assistance)",
+    "confidence": "Possibly eligible",
+    "amount": "~$400–800 / yr",
+    "amountAnnual": "annual utility credit",
+    "why": "Household income is at or below 150% of the Federal Poverty Line. LIHEAP helps with heating, cooling, and past-due utility bills.",
+    "citations": [
+      { "label": "42 U.S.C. § 8624", "url": "https://www.law.cornell.edu/uscode/text/42/8624" },
+      { "label": "ACF LIHEAP", "url": "https://www.acf.hhs.gov/ocs/programs/liheap" }
+    ],
+    "documents": [
+      "Photo ID",
+      "Most recent utility bill",
+      "Proof of income for the past 30 days",
+      "Social Security cards for household",
+      "Rental or mortgage agreement"
+    ],
+    "deadline": "Applications open October — funds are first-come, first-served",
+    "renewal": "Apply again each cooling or heating season",
+    "processingTime": "~30–60 days · Emergency assistance within 18 hours",
+    "agency": "State LIHEAP office",
+    "applyUrl": "https://www.acf.hhs.gov/ocs/programs/liheap",
+    "applyMethod": "Call your local LIHEAP office or apply through your state's portal",
+    "phone": "1-866-675-6623"
+  }
+]

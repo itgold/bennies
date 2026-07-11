@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+const categories = await getCollection('categories');
+---
+<div class="pill-row" role="list" aria-label="Types of benefits we help with">
+  {categories.map((c) => (
+    <span class={`pill tone-${c.data.tone}`} role="listitem">
+      <span class="pill-dot" aria-hidden="true"></span>
+      {c.data.name}
+    </span>
+  ))}
+</div>
+
+<style>
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-white);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 12px 6px 10px;
+    border-radius: var(--radius-pill);
+    line-height: 1;
+  }
+  .pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+  .tone-green .pill-dot { background: var(--accent); }
+  .tone-blue .pill-dot { background: var(--blue); }
+  .tone-rust .pill-dot { background: var(--rust); }
+  .tone-plum .pill-dot { background: var(--plum); }
+  .tone-mustard .pill-dot { background: var(--mustard); }
+</style>

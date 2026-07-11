@@ -1,7 +1,7 @@
 [
-  { "id": "benefits", "name": "Benefits & Grants", "icon": "🎁", "tone": "green" },
-  { "id": "scholarships", "name": "Scholarships", "icon": "🎓", "tone": "amber" },
-  { "id": "healthcare", "name": "Healthcare", "icon": "🩺", "tone": "pink" },
-  { "id": "jobs", "name": "Jobs", "icon": "💼", "tone": "blue" },
-  { "id": "community", "name": "Community Support", "icon": "🤝", "tone": "purple" }
+  { "id": "food", "name": "Food & nutrition", "icon": "•", "tone": "green" },
+  { "id": "healthcare", "name": "Healthcare", "icon": "•", "tone": "blue" },
+  { "id": "cash", "name": "Cash assistance", "icon": "•", "tone": "mustard" },
+  { "id": "housing", "name": "Housing & utilities", "icon": "•", "tone": "rust" },
+  { "id": "tax", "name": "Tax credits", "icon": "•", "tone": "plum" }
 ]

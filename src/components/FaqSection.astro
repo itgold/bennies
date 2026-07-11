@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+const items = await getCollection('faq');
+const tones = ['green', 'blue', 'rust', 'plum', 'mustard'] as const;
+---
+<section class="faq" aria-labelledby="faq-heading">
+  <header class="faq-header">
+    <p class="section-eyebrow eyebrow-blue">Before you begin</p>
+    <h2 id="faq-heading" class="section-title">You might be <span class="hl hl-blue">wondering</span>.</h2>
+  </header>
+
+  <ul class="faq-list">
+    {items.map((it, i) => {
+      const tone = tones[i % tones.length];
+      return (
+        <li class={`faq-row tone-${tone}`}>
+          <details class="faq-item">
+            <summary>
+              <span class="faq-marker" aria-hidden="true"></span>
+              <span class="faq-q">{it.data.question}</span>
+              <span class="faq-caret" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/>
+                </svg>
+              </span>
+            </summary>
+            <p class="faq-a">{it.data.answer}</p>
+          </details>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<style>
+  .faq { padding: 64px 0 72px; max-width: 800px; margin: 0 auto; }
+  .faq-header { margin-bottom: 32px; }
+
+  .faq-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+  .faq-row { border-bottom: 1px solid var(--line); position: relative; }
+
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 0 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--ink); }
+
+  .faq-marker {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    border-radius: var(--radius-pill);
+    transition: height 0.2s;
+  }
+  .faq-item[open] .faq-marker { height: 36px; }
+  .tone-green .faq-marker,
+  .tone-blue .faq-marker,
+  .tone-rust .faq-marker,
+  .tone-plum .faq-marker,
+  .tone-mustard .faq-marker { background: var(--blue); }
+
+  .faq-q { flex: 1; }
+
+  .faq-caret {
+    color: var(--ink-3);
+    transition: transform 0.2s, color 0.2s;
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-caret { transform: rotate(180deg); color: var(--ink); }
+
+  .faq-a {
+    color: var(--ink-2);
+    line-height: 1.65;
+    margin: 0 0 20px;
+    padding: 0 32px 0 22px;
+    font-size: 0.98rem;
+  }
+</style>

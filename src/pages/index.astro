@@ -2,30 +2,48 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import HeroVisual from '../components/HeroVisual.astro';
+import StatBand from '../components/StatBand.astro';
+import HowWeHelp from '../components/HowWeHelp.astro';
+import ImpactMetrics from '../components/ImpactMetrics.astro';
+import PeopleSection from '../components/PeopleSection.astro';
+import TrustPills from '../components/TrustPills.astro';
+import FaqSection from '../components/FaqSection.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 ---
 <BaseLayout>
   <Header />
   <main id="main">
-    <div class="container landing">
+    <div class="container">
       <Hero />
-      <HeroVisual />
+    </div>
+
+    <StatBand />
+
+    <div class="container">
+      <HowWeHelp />
+    </div>
+
+    <div class="container">
+      <ImpactMetrics />
+    </div>
+
+    <div class="container">
+      <PeopleSection />
+    </div>
+
+    <div class="container">
+      <TrustPills />
+    </div>
+
+    <div class="container">
+      <FaqSection />
     </div>
   </main>
   <SiteFooter />
 </BaseLayout>
 
 <style>
-  .landing {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 60px;
-    align-items: center;
-    padding-top: 24px;
-    padding-bottom: 40px;
-  }
-  @media (max-width: 900px) {
-    .landing { grid-template-columns: 1fr; gap: 30px; }
-  }
+  main { position: relative; }
+  main > .container,
+  main > section { position: relative; z-index: 1; }
 </style>

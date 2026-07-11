@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+const items = await getCollection('helpItems');
+---
+<section class="how" aria-labelledby="how-heading">
+  <header class="how-header">
+    <p class="section-eyebrow eyebrow-blue">What Bennies does</p>
+    <h2 id="how-heading" class="section-title">Three ways <span class="hl hl-blue">we help</span> — start to finish.</h2>
+    <p class="section-lede">
+      Real problems people bring to a benefits office. Real answers — in plain English,
+      with the exact rule cited so you can verify it yourself.
+    </p>
+  </header>
+
+  <ol class="how-list">
+    {items.map((it, i) => (
+      <li class={`how-item tone-${it.data.tone}`}>
+        <span class="how-bar" aria-hidden="true"></span>
+        <div class="how-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+        <div class="how-body">
+          <h3 class="how-title">{it.data.title}</h3>
+          <p class="how-copy">{it.data.body}</p>
+          <a class="how-link" href={it.data.href}>
+            {it.data.cta}
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" fill="none">
+              <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+          </a>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .how { padding: 64px 0; }
+  .how-header { max-width: 40rem; margin: 0 0 48px; }
+
+  .how-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .how-item {
+    position: relative;
+    padding: 32px 28px 32px 28px;
+    border-right: 1px solid var(--line);
+    background: var(--surface-white);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: background 0.15s;
+  }
+  .how-item:last-child { border-right: 0; }
+  .how-bar {
+    display: block;
+    width: 100%;
+    height: 4px;
+    margin: 0 0 20px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+  .how-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+  }
+  .tone-green .how-bar,
+  .tone-rust .how-bar,
+  .tone-blue .how-bar,
+  .tone-plum .how-bar,
+  .tone-mustard .how-bar { background: var(--blue); }
+
+  .how-num {
+    font-family: var(--font-numeric);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-feature-settings: "tnum";
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+  .tone-green .how-num,
+  .tone-rust .how-num,
+  .tone-blue .how-num,
+  .tone-plum .how-num,
+  .tone-mustard .how-num { color: var(--blue-strong); }
+
+  .how-title { font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0 12px; font-weight: 700; color: var(--ink); min-height: 3rem; }
+  .how-copy { color: var(--ink-2); font-size: 0.98rem; line-height: 1.6; margin: 0 0 20px; flex: 1; }
+  .how-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-bottom: 1.5px solid;
+    padding-bottom: 2px;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .tone-green .how-link,
+  .tone-rust .how-link,
+  .tone-blue .how-link,
+  .tone-plum .how-link,
+  .tone-mustard .how-link { border-color: var(--blue); }
+  .how-link:hover { color: var(--blue-strong) !important; }
+
+  .how-item:hover { background: var(--surface-2); }
+
+  @media (max-width: 900px) {
+    .how-list { grid-template-columns: 1fr; gap: 0; }
+    .how-item { border-right: 0; border-bottom: 1px solid var(--line); }
+    .how-item:last-child { border-bottom: 0; }
+  }
+</style>

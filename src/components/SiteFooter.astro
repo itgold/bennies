@@ -1,11 +1,39 @@
 ---
+import Logo from './Logo.astro';
 ---
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-note">
-      <strong>Bennies</strong> is an independent tool. Not affiliated with any government agency.
-    </p>
-    <p class="footer-meta">© {new Date().getFullYear()} Bennies · Built for impact.</p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo size="sm" />
+      <p class="footer-note">
+        An independent guide to public benefits.
+        Not the government. Not affiliated with one.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer">
+      <div>
+        <p class="footer-label">Tools</p>
+        <a href="/onboarding">Check eligibility</a>
+        <a href="/appeal">Appeal a denial</a>
+        <a href="/apply">Application help</a>
+      </div>
+      <div>
+        <p class="footer-label">About</p>
+        <a href="/faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/sources">Sources</a>
+      </div>
+      <div>
+        <p class="footer-label">Contact</p>
+        <a href="mailto:hello@bennies.example">hello@bennies.example</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container footer-meta-row">
+    <p>© {new Date().getFullYear()} Bennies</p>
+    <p>Every rule cited to an official source.</p>
   </div>
 </footer>
 
@@ -13,16 +41,51 @@
   .site-footer {
     background: var(--surface);
     border-top: 1px solid var(--line);
-    margin-top: 40px;
-    padding: 24px 0;
+    margin-top: 64px;
+    padding: 48px 0 24px;
   }
-  .footer-inner {
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 12px; max-width: 26rem; }
+  .footer-note { margin: 0; color: var(--ink-2); font-size: 0.9rem; line-height: 1.55; }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .footer-nav > div { display: flex; flex-direction: column; gap: 8px; }
+  .footer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .footer-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 2px 0;
+  }
+  .footer-nav a:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 3px; }
+
+  .footer-meta-row {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
+    padding-top: 20px;
   }
-  .footer-note { margin: 0; color: var(--ink-2); font-size: 0.88rem; }
-  .footer-meta { margin: 0; color: var(--ink-3); font-size: 0.82rem; }
+  .footer-meta-row p { margin: 0; color: var(--ink-3); font-size: 0.82rem; }
+
+  @media (max-width: 820px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-nav { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .footer-meta-row { flex-direction: column; gap: 4px; }
+  }
 </style>
