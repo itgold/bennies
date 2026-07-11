@@ -1,0 +1,32 @@
+---
+import Logo from './Logo.astro';
+import ProgressIndicator from './ProgressIndicator.astro';
+
+interface Props {
+  step?: number;
+  totalSteps?: number;
+}
+const { step, totalSteps } = Astro.props;
+const showProgress = typeof step === 'number' && typeof totalSteps === 'number';
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+    {showProgress && <ProgressIndicator step={step!} totalSteps={totalSteps!} />}
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    gap: 16px;
+  }
+</style>

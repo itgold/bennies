@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+const items = await getCollection('opportunities');
+---
+<section class="rec" aria-labelledby="rec-heading">
+  <header class="rec-header">
+    <span class="rec-star" aria-hidden="true">✨</span>
+    <h2 id="rec-heading" class="rec-title">Recommended for you</h2>
+  </header>
+  <ul class="rec-list">
+    {items.map((o) => (
+      <li class={`rec-item tone-${o.data.tone}`}>
+        <span class="rec-icon" aria-hidden="true">{o.data.icon}</span>
+        <span class="rec-body">
+          <span class="rec-name">{o.data.name}</span>
+          <span class="rec-cat">{o.data.category}</span>
+        </span>
+        <a class="rec-cta" href={`/opportunities/${o.id}`} aria-label={`View ${o.data.name}`}>
+          <span aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <a href="/opportunities" class="rec-more">View all opportunities</a>
+</section>
+
+<style>
+  .rec {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .rec-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .rec-star { color: #f59e0b; }
+  .rec-title { margin: 0; font-size: 0.95rem; }
+  .rec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .rec-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+  .rec-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+  .tone-green .rec-icon { background: var(--tone-green-bg); }
+  .tone-blue .rec-icon { background: var(--tone-blue-bg); }
+  .tone-pink .rec-icon { background: var(--tone-pink-bg); }
+  .tone-amber .rec-icon { background: var(--tone-amber-bg); }
+  .tone-purple .rec-icon { background: var(--tone-purple-bg); }
+
+  .rec-body { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+  .rec-name { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+  .rec-cat { font-size: 0.75rem; color: var(--ink-3); }
+  .rec-cta {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--ink-2);
+    font-weight: 700;
+  }
+  .rec-cta:hover { background: var(--color-blue-soft); color: var(--color-blue-ink); }
+  .rec-more {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--color-blue-ink);
+    font-weight: 600;
+  }
+</style>

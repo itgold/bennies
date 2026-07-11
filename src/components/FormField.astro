@@ -1,0 +1,132 @@
+---
+import PillToggle from './PillToggle.astro';
+import RangeField from './RangeField.astro';
+
+interface Props {
+  id: string;
+  label: string;
+  icon: string;
+  tone: 'green' | 'blue' | 'pink' | 'amber' | 'purple';
+  type: 'text' | 'select' | 'range' | 'pills';
+  placeholder?: string;
+  options?: string[];
+  min?: number;
+  max?: number;
+  step?: number;
+  defaultValue?: string | number;
+  minLabel?: string;
+  maxLabel?: string;
+}
+const {
+  id, label, icon, tone, type,
+  placeholder, options,
+  min, max, step, defaultValue,
+  minLabel, maxLabel,
+} = Astro.props;
+
+const labelId = `${id}-label`;
+---
+<div class={`field tone-${tone}`}>
+  <label class="field-label" for={type === 'pills' ? undefined : id} id={labelId}>
+    <span class="field-icon" aria-hidden="true">{icon}</span>
+    <span class="field-text">{label}</span>
+  </label>
+
+  <div class="field-control">
+    {type === 'text' && (
+      <input
+        class="input"
+        id={id}
+        name={id}
+        type="text"
+        placeholder={placeholder}
+        aria-labelledby={labelId}
+      />
+    )}
+    {type === 'select' && (
+      <select class="input" id={id} name={id} aria-labelledby={labelId}>
+        {(options ?? []).map((opt, i) => (
+          <option value={i === 0 ? '' : opt} disabled={i === 0} selected={i === 0}>
+            {opt}
+          </option>
+        ))}
+      </select>
+    )}
+    {type === 'range' && (
+      <RangeField
+        id={id}
+        name={id}
+        min={min ?? 0}
+        max={max ?? 100}
+        step={step ?? 1}
+        defaultValue={Number(defaultValue ?? 0)}
+        minLabel={minLabel}
+        maxLabel={maxLabel}
+      />
+    )}
+    {type === 'pills' && (
+      <PillToggle
+        name={id}
+        labelledBy={labelId}
+        defaultValue={String(defaultValue ?? 'No')}
+      />
+    )}
+  </div>
+</div>
+
+<style>
+  .field {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .field:last-child { border-bottom: 0; }
+  .field-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  .field-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .tone-green .field-icon { background: var(--tone-green-bg); color: var(--tone-green-ink); }
+  .tone-blue .field-icon { background: var(--tone-blue-bg); color: var(--tone-blue-ink); }
+  .tone-pink .field-icon { background: var(--tone-pink-bg); color: var(--tone-pink-ink); }
+  .tone-amber .field-icon { background: var(--tone-amber-bg); color: var(--tone-amber-ink); }
+  .tone-purple .field-icon { background: var(--tone-purple-bg); color: var(--tone-purple-ink); }
+
+  .field-control { min-width: 0; }
+
+  .input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+  .input:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-ring-offset); }
+
+  @media (max-width: 640px) {
+    .field {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

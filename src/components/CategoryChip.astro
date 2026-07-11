@@ -1,0 +1,42 @@
+---
+interface Props {
+  icon: string;
+  name: string;
+  tone: 'green' | 'blue' | 'pink' | 'amber' | 'purple';
+}
+const { icon, name, tone } = Astro.props;
+---
+<span class={`chip tone-${tone}`}>
+  <span class="chip-icon" aria-hidden="true">{icon}</span>
+  <span class="chip-name">{name}</span>
+</span>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .chip-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+  .tone-green .chip-icon { background: var(--tone-green-bg); color: var(--tone-green-ink); }
+  .tone-blue .chip-icon { background: var(--tone-blue-bg); color: var(--tone-blue-ink); }
+  .tone-pink .chip-icon { background: var(--tone-pink-bg); color: var(--tone-pink-ink); }
+  .tone-amber .chip-icon { background: var(--tone-amber-bg); color: var(--tone-amber-ink); }
+  .tone-purple .chip-icon { background: var(--tone-purple-bg); color: var(--tone-purple-ink); }
+</style>

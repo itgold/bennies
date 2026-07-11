@@ -1,0 +1,43 @@
+---
+interface Props {
+  step: number;
+  totalSteps: number;
+}
+const { step, totalSteps } = Astro.props;
+const pct = Math.max(0, Math.min(100, (step / totalSteps) * 100));
+---
+<div class="progress" role="group" aria-label={`Step ${step} of ${totalSteps}`}>
+  <span class="progress-label">
+    Step <strong>{step}</strong> of <strong>{totalSteps}</strong>
+  </span>
+  <div
+    class="progress-track"
+    role="progressbar"
+    aria-valuenow={step}
+    aria-valuemin="1"
+    aria-valuemax={totalSteps}
+  >
+    <div class="progress-fill" style={`width:${pct}%`}></div>
+  </div>
+</div>
+
+<style>
+  .progress { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--ink-2); }
+  .progress-label strong { color: var(--ink); }
+  .progress-track {
+    width: 120px;
+    height: 8px;
+    background: var(--line);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--color-blue);
+    border-radius: var(--radius-pill);
+    transition: width 0.3s ease;
+  }
+  @media (max-width: 480px) {
+    .progress-track { width: 80px; }
+  }
+</style>

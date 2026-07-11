@@ -1,0 +1,96 @@
+---
+interface Props {
+  name?: string;
+  message?: string;
+}
+const {
+  name = 'Bennie',
+  message = 'The more accurate your information, the more opportunities I can find for you.',
+} = Astro.props;
+---
+<aside class="mascot" aria-label={`Message from ${name}`}>
+  <figure class="mascot-figure">
+    <svg viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Bennie mascot">
+      <defs>
+        <linearGradient id="bennie-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#dbeafe" />
+          <stop offset="100%" stop-color="#d1fae5" />
+        </linearGradient>
+      </defs>
+      <rect width="120" height="120" rx="24" fill="url(#bennie-bg)" />
+      <!-- Head -->
+      <circle cx="60" cy="60" r="34" fill="#2563eb" />
+      <!-- Eyes -->
+      <circle cx="50" cy="56" r="4" fill="#fff" />
+      <circle cx="70" cy="56" r="4" fill="#fff" />
+      <circle cx="51" cy="57" r="1.5" fill="#0f172a" />
+      <circle cx="71" cy="57" r="1.5" fill="#0f172a" />
+      <!-- Smile -->
+      <path d="M48 70q12 10 24 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" />
+      <!-- Sparkles -->
+      <path d="M26 30l3 3 3-3-3-3z" fill="#f59e0b" />
+      <path d="M96 40l3 3 3-3-3-3z" fill="#10b981" />
+      <path d="M100 90l2 2 2-2-2-2z" fill="#2563eb" />
+    </svg>
+    <figcaption class="mascot-name">{name}</figcaption>
+  </figure>
+  <p class="mascot-msg">{message}</p>
+  <ul class="mascot-trust">
+    <li>
+      <span class="dot" aria-hidden="true">🔒</span>
+      <span><strong>Your information is encrypted</strong></span>
+    </li>
+    <li>
+      <span class="dot" aria-hidden="true">🚫</span>
+      <span><strong>We never sell your data</strong></span>
+    </li>
+  </ul>
+</aside>
+
+<style>
+  .mascot {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 20px;
+  }
+  .mascot-figure { margin: 0 0 12px; display: flex; flex-direction: column; align-items: center; }
+  .mascot-name { font-weight: 700; margin-top: 6px; }
+  .mascot-msg {
+    color: var(--ink-2);
+    font-size: 0.92rem;
+    margin: 0 0 20px;
+  }
+  .mascot-trust {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    text-align: left;
+  }
+  .mascot-trust li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--ink-2);
+  }
+  .dot {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+</style>

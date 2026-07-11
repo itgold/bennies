@@ -1,0 +1,63 @@
+[
+  {
+    "id": "zip",
+    "label": "ZIP Code",
+    "icon": "📍",
+    "tone": "blue",
+    "type": "text",
+    "placeholder": "e.g. 90210"
+  },
+  {
+    "id": "age",
+    "label": "Age Range",
+    "icon": "🎂",
+    "tone": "amber",
+    "type": "select",
+    "options": ["Select your range", "Under 18", "18–24", "25–34", "35–44", "45–54", "55–64", "65+"]
+  },
+  {
+    "id": "household",
+    "label": "Household size",
+    "icon": "👨‍👩‍👧",
+    "tone": "pink",
+    "type": "select",
+    "options": ["Select", "1", "2", "3", "4", "5", "6+"]
+  },
+  {
+    "id": "employment",
+    "label": "Employment status",
+    "icon": "💼",
+    "tone": "green",
+    "type": "select",
+    "options": ["Select your status", "Employed full-time", "Employed part-time", "Self-employed", "Student", "Unemployed", "Retired"]
+  },
+  {
+    "id": "income",
+    "label": "Annual household income",
+    "icon": "💵",
+    "tone": "purple",
+    "type": "range",
+    "min": 0,
+    "max": 200000,
+    "step": 1000,
+    "default": 55000,
+    "minLabel": "$0",
+    "maxLabel": "$200k+"
+  },
+  {
+    "id": "veteran",
+    "label": "Are you a veteran?",
+    "icon": "🎖",
+    "tone": "blue",
+    "type": "pills",
+    "default": "No"
+  },
+  {
+    "id": "student",
+    "label": "Are you a student?",
+    "icon": "🎓",
+    "tone": "amber",
+    "type": "pills",
+    "default": "No"
+  }
+]

@@ -1,0 +1,71 @@
+---
+import AssistantBubble from './AssistantBubble.astro';
+import RecommendedList from './RecommendedList.astro';
+---
+<div class="visual" aria-hidden="false">
+  <div class="portrait" role="img" aria-label="Illustration of a young person smiling while using their phone">
+    <!-- Placeholder illustration in place of a stock photo -->
+    <svg viewBox="0 0 320 380" width="100%" height="100%">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#dbeafe" />
+          <stop offset="100%" stop-color="#d1fae5" />
+        </linearGradient>
+      </defs>
+      <rect width="320" height="380" fill="url(#bg)" rx="24" />
+      <!-- Sky city -->
+      <rect x="0" y="220" width="320" height="160" fill="#c7e0f4" opacity="0.6" />
+      <!-- Head -->
+      <circle cx="160" cy="150" r="70" fill="#f9d5b3" />
+      <!-- Hair -->
+      <path d="M100 130q10-70 60-70t60 70q-20-15-60-15t-60 15z" fill="#3b2a1a" />
+      <!-- Face -->
+      <circle cx="140" cy="150" r="4" fill="#1f2937" />
+      <circle cx="180" cy="150" r="4" fill="#1f2937" />
+      <path d="M140 175q20 15 40 0" stroke="#1f2937" stroke-width="3" fill="none" stroke-linecap="round" />
+      <!-- Shirt -->
+      <path d="M80 230q80-30 160 0v150h-160z" fill="#f59e0b" />
+      <!-- Phone -->
+      <rect x="185" y="230" width="40" height="70" rx="6" fill="#1f2937" />
+      <rect x="188" y="234" width="34" height="60" rx="3" fill="#e0f2fe" />
+    </svg>
+  </div>
+
+  <div class="overlay overlay-top">
+    <AssistantBubble
+      name="Bennie"
+      greeting="Hi Maya! I found 12 new opportunities you may be eligible for. Want to see them?"
+    />
+  </div>
+
+  <div class="overlay overlay-bottom">
+    <RecommendedList />
+  </div>
+</div>
+
+<style>
+  .visual {
+    position: relative;
+    padding: 20px;
+  }
+  .portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--surface);
+  }
+  .overlay {
+    position: absolute;
+    z-index: 2;
+  }
+  .overlay-top { top: 40px; right: -20px; }
+  .overlay-bottom { bottom: 20px; left: -20px; right: -20px; }
+
+  @media (max-width: 900px) {
+    .overlay { position: static; margin-top: 16px; }
+    .visual { padding: 0; }
+    .overlay-bottom, .overlay-top { display: block; }
+  }
+</style>

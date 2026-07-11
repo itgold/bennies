@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout>
+  <Header />
+  <main id="main">
+    <div class="container landing">
+      <Hero />
+      <HeroVisual />
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .landing {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+  @media (max-width: 900px) {
+    .landing { grid-template-columns: 1fr; gap: 30px; }
+  }
+</style>

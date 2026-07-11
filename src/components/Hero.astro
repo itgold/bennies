@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import CategoryChip from './CategoryChip.astro';
+import EligibleCard from './EligibleCard.astro';
+import TrustPills from './TrustPills.astro';
+
+const categories = await getCollection('categories');
+---
+<section class="hero" aria-labelledby="hero-heading">
+  <p class="eyebrow">
+    <span class="eyebrow-dot" aria-hidden="true"></span> Bennies
+  </p>
+  <h1 id="hero-heading">
+    Your AI guide to<br />
+    <span class="grad">life-changing<br />opportunities.</span>
+  </h1>
+  <p class="lead">
+    Bennies connects you with personalized benefits, grants, scholarships, healthcare,
+    jobs, and community support — so you never miss what you're eligible for.
+  </p>
+
+  <ul class="chip-row" aria-label="Categories we cover">
+    {categories.map((c) => (
+      <li>
+        <CategoryChip icon={c.data.icon} name={c.data.name} tone={c.data.tone} />
+      </li>
+    ))}
+  </ul>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/onboarding">
+      Get started <span aria-hidden="true">→</span>
+    </a>
+    <EligibleCard amount="$14,980+" />
+  </div>
+
+  <div class="trust-row">
+    <TrustPills />
+  </div>
+</section>
+
+<style>
+  .hero { padding: 40px 0 24px; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-brand-strong);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 12px;
+  }
+  .eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-brand);
+  }
+  h1 { margin: 0 0 16px; }
+  .grad {
+    background: linear-gradient(90deg, var(--color-brand), var(--color-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lead {
+    color: var(--ink-2);
+    font-size: 1.05rem;
+    max-width: 34rem;
+    margin: 0 0 20px;
+  }
+  .chip-row {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .trust-row { max-width: 620px; }
+</style>

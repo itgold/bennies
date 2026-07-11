@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import FormField from '../components/FormField.astro';
+import MascotCard from '../components/MascotCard.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const fields = await getCollection('formFields');
+---
+<BaseLayout title="Bennies — Let's find opportunities for you">
+  <Header step={1} totalSteps={4} />
+  <main id="main">
+    <div class="container onboarding">
+      <section class="form-panel" aria-labelledby="form-heading">
+        <h1 id="form-heading">Let's find opportunities for you</h1>
+        <p class="sub">
+          Answer a few quick questions so we can match you with benefits you're eligible for.
+        </p>
+
+        <form class="form" method="post" action="/onboarding/step-2">
+          {fields.map((f) => (
+            <FormField
+              id={f.data.id}
+              label={f.data.label}
+              icon={f.data.icon}
+              tone={f.data.tone}
+              type={f.data.type}
+              placeholder={f.data.placeholder}
+              options={f.data.options}
+              min={f.data.min}
+              max={f.data.max}
+              step={f.data.step}
+              defaultValue={f.data.default}
+              minLabel={f.data.minLabel}
+              maxLabel={f.data.maxLabel}
+            />
+          ))}
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-block">
+              Continue <span aria-hidden="true">→</span>
+            </button>
+            <a class="btn-link" href="/dashboard">Skip for now</a>
+            <p class="form-note" aria-live="polite">
+              <span aria-hidden="true">⏱</span> Takes less than 2 minutes
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <aside class="side-panel">
+        <MascotCard />
+      </aside>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .onboarding {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    align-items: flex-start;
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+  .form-panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .form-panel h1 { font-size: 1.85rem; margin: 0 0 6px; }
+  .sub { color: var(--ink-2); margin: 0 0 20px; }
+  .form { display: block; }
+  .form-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-block { width: 100%; }
+  .form-note {
+    margin: 4px 0 0;
+    color: var(--ink-3);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 900px) {
+    .onboarding { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .form-panel { padding: 20px; }
+  }
+</style>

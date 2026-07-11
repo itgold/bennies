@@ -1,0 +1,6 @@
+[
+  { "id": "secure", "icon": "🔒", "label": "Private & Secure", "description": "Your info stays yours. Encrypted end to end." },
+  { "id": "personalized", "icon": "🎯", "label": "Personalized", "description": "Matched to you, not the crowd." },
+  { "id": "updated", "icon": "🔄", "label": "Always Updated", "description": "Fresh programs every day." },
+  { "id": "everyone", "icon": "🌍", "label": "For Everyone", "description": "Built for all backgrounds." }
+]

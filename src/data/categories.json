@@ -1,0 +1,7 @@
+[
+  { "id": "benefits", "name": "Benefits & Grants", "icon": "🎁", "tone": "green" },
+  { "id": "scholarships", "name": "Scholarships", "icon": "🎓", "tone": "amber" },
+  { "id": "healthcare", "name": "Healthcare", "icon": "🩺", "tone": "pink" },
+  { "id": "jobs", "name": "Jobs", "icon": "💼", "tone": "blue" },
+  { "id": "community", "name": "Community Support", "icon": "🤝", "tone": "purple" }
+]

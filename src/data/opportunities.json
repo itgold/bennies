@@ -1,0 +1,6 @@
+[
+  { "id": "pell", "name": "Pell Grant", "category": "Federal Grant", "icon": "🎓", "tone": "amber" },
+  { "id": "hsp", "name": "Healthcare Savings Program", "category": "Community", "icon": "🩺", "tone": "pink" },
+  { "id": "tech", "name": "Tech Career Accelerator", "category": "Career", "icon": "💻", "tone": "blue" },
+  { "id": "food", "name": "Local Food Support", "category": "Community", "icon": "🥗", "tone": "green" }
+]
